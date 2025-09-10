@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+<p>Total Simple Balance: ₹{{ total_simple }}</p>
+<p>Total Compound Balance: ₹{{ total_compound }}</p>
+
+<table class="table table-bordered">
+  <tr><th>Name</th><th>Simple Balance</th><th>Compound Balance</th><th>Action</th></tr>
+  {% for row in borrowers %}
+  <tr>
+    <td>{{ row.borrower.name }}</td>
+    <td>{{ row.simple|inr }}</td>
+    <td>{{ row.compound|inr }}</td>
+    <td><a class="btn btn-primary btn-sm" href="{{ url_for('borrower_detail', id=row.borrower.id) }}">View</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h3>Add Borrower</h3>
+<form method="post" action="{{ url_for('add_borrower') }}">
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="number" name="rate" step="0.01" value="12.0" required>
+  <input type="text" name="notes" placeholder="Notes">
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+{% endblock %}
+<a href="{{ url_for('upload_excel') }}" class="btn btn-info mb-3">Bulk Upload Excel</a>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Bulk Upload</h2>
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="file" class="form-label">Upload Excel File</label>
+    <input class="form-control" type="file" name="file" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<p>📌 Uploaded data will be <b>APPENDED</b> to existing borrowers and transactions.</p>
+<p>Excel format expected:</p>
+<pre>
+borrower | date       | type    | amount  | rate
+Alice    | 2022-09-28 | loan    | 500000  | 12
+Alice    | 2022-10-01 | payment | 20000   | 12
+Bob      | 2022-08-15 | loan    | 2100000 | 15
+</pre>
+{% endblock %}
